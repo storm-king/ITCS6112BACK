@@ -18,7 +18,15 @@ public class JobTypes {
     private Integer id;
      
     private String typeName;
+    
+    public JobTypes(){
+        
+    }
  
+    public JobTypes(int id, String typeName){
+        this.id = id;
+        this.typeName = typeName;
+    }
     public Integer getId() {
         return id;
     }
