@@ -5,10 +5,11 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.repository;
 
+import com.SSDIproject.ManpowerAllocatorSSDI.model.JobTypes;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
  
-import com.SSDIproject.ManpowerAllocatorSSDI.model.Student;
- 
-public interface StudentRepository extends CrudRepository<Student, Long> {
- 
+@Repository
+public interface JobTypesRepository extends CrudRepository<JobTypes, Integer> {
+
 }
