@@ -22,6 +22,16 @@ public class Attendance {
      @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+public Attendance(){
+    
+}
+    public Attendance(Integer id, Integer employee_id, LocalDate absence_date, float hours_missed, Integer code_id) {
+        this.id = id;
+        this.employee_id = employee_id;
+        this.absence_date = absence_date;
+        this.hours_missed = hours_missed;
+        this.code_id = code_id;
+    }
 
      
      private Integer employee_id;

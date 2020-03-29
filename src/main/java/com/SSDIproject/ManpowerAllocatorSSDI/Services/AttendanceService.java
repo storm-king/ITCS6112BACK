@@ -60,9 +60,14 @@ public class AttendanceService {
 
 
 	// Get all Job Types
-	public Iterable<Attendance> getAllAttendance(){
+	public  Iterable<Attendance> getAllAttendance(){
 	 
             return attendanceRepository.findAll();
+	}
+        public Iterable<Attendance> getAllAbsenceCodes(){
+            return attendanceRepository.getAbsenceCodes();
+	 
+           
 	}
         public Iterable<Attendance> getTodaysAttendance(String date){
 	//  LocalDate today = LocalDate.now();
@@ -85,10 +90,13 @@ public class AttendanceService {
                   
                   while(itr.hasNext()){
                       Attendance loan = itr.next();
-                      LocalDate holder = loan.getAbsence_date();
+                      LocalDate holder = loan.getAbsence_date().plusDays(1);
                       if(localDate.compareTo(holder)!=0){
                           System.out.println(loan.getId() + " " + loan.getEmployee_id());
                           itr.remove();
+                      }
+                      else{
+                          loan.setAbsence_Date(loan.getAbsence_date().plusDays(1));
                       }
                           
                   }

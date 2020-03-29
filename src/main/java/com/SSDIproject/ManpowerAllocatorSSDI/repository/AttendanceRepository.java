@@ -20,6 +20,9 @@ public interface AttendanceRepository extends CrudRepository<Attendance, Integer
 
  @Query(value= "Select * from attendance", nativeQuery=true)
  public List<Attendance> getAll();
+ 
+ @Query(value= "Select * from attendance_codes", nativeQuery=true)
+ public List<Attendance> getAbsenceCodes();
     
    
 }
