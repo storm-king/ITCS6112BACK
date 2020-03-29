@@ -23,7 +23,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {    
-//   EXAMPLE OF HOW TO LOAD DEFAULT DATA TO DATABASE ON APP START:
+//   EXAMPLE OF HOW TO LOAD DEFAULT DATA TO DATABASE ON APP START IF NEEDED:
 //        JobTypes jobType_a = new JobTypes();
 //        jobType_a.setTypeName("Test Type 1");
 //        jtRepository.save(jobType_a);
