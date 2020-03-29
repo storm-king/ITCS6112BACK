@@ -17,27 +17,29 @@ public class JobTypesService {
 	
 	@Autowired
 	private JobTypesRepository jobTypeRepository;
+        
+        
 	
 	// Add new Job Type
-	public String addJobType(JobTypes jt) {
+	public boolean addJobType(JobTypes jt) {
 		
 		try {
 			jobTypeRepository.save(jt);
-			return "saved";
+			return true;
 		} catch(Exception e) {
-			return "failed";
+			return false;
 		}
 	}
 
 
         // Update a Job Type
-	public String updateJobType(Integer id, JobTypes jt) {
+	public boolean updateJobType(Integer id, JobTypes jt) {
 		try {
 			jt.setId(id);
 			jobTypeRepository.save(jt);
-			return "Updated";
+			return true;
 		}catch(Exception e) {
-			return "Failed";
+			return false;
 		}
 	}
 
@@ -55,12 +57,12 @@ public class JobTypesService {
 
 	
 	// Delete a Job Type
-	public String deleteJobType(Integer id) {
+	public boolean deleteJobType(Integer id) {
 		try{
 			jobTypeRepository.deleteById(id);
-			return "Deleted";
+			return true;
 		}catch(Exception e) {
-			return "Failed";
+			return false;
 		}
 	}
 

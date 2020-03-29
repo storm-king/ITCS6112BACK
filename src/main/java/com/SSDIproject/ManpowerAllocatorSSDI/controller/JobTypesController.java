@@ -33,17 +33,17 @@ public class JobTypesController {
     // Add new job type
     @PostMapping(path = "/add")
     public @ResponseBody
-    ResponseEntity<String> addNewJobType(@RequestBody JobTypes jt) {
-        String status = JobTypesService.addJobType(jt);
+    ResponseEntity<JobTypes> addNewJobType(@RequestBody JobTypes jt) {
+        boolean status = JobTypesService.addJobType(jt);
         //Return OK status if successfully updated
-        if (status.equals("saved")) {
-            return new ResponseEntity<String>(
-                    status,
+        if (status) {
+            return new ResponseEntity<>(
+                    jt,
                     HttpStatus.OK);
         }
         //Otherwise, return server error if something went wrong
-        return new ResponseEntity<String>(
-                status,
+        return new ResponseEntity<>(
+                jt,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -52,7 +52,7 @@ public class JobTypesController {
     public @ResponseBody
     ResponseEntity<Iterable<JobTypes>> getAllJobTypes() {
         Iterable<JobTypes> jobTypesList = JobTypesService.getAllJobTypes();
-        return new ResponseEntity<Iterable<JobTypes>>(
+        return new ResponseEntity<>(
                 jobTypesList,
                 HttpStatus.OK);
     }
@@ -64,12 +64,12 @@ public class JobTypesController {
         Optional<JobTypes> jobType = JobTypesService.getJobType(id);
         //If Found, return OK status with job type found
         if (jobType.isPresent()) {
-            return new ResponseEntity<Optional<JobTypes>>(
+            return new ResponseEntity<>(
                     jobType,
                     HttpStatus.OK);
         }
         //Otherwise, return error not found
-        return new ResponseEntity<Optional<JobTypes>>(
+        return new ResponseEntity<>(
                 jobType,
                 HttpStatus.NOT_FOUND);
     }
@@ -77,17 +77,17 @@ public class JobTypesController {
     // Update a Job Type
     @PostMapping(path = "/update/{id}")
     public @ResponseBody
-    ResponseEntity<String> updateJobType(@PathVariable(name = "id") Integer id, @RequestBody JobTypes jt) {
-        String status = JobTypesService.updateJobType(id, jt);
+    ResponseEntity<JobTypes> updateJobType(@PathVariable(name = "id") Integer id, @RequestBody JobTypes jt) {
+        boolean status = JobTypesService.updateJobType(id, jt);
         //If Successful update, return OK Status
-        if (status.equals("Updated")) {
-            return new ResponseEntity<String>(
-                    status,
+        if (status) {
+            return new ResponseEntity<>(
+                    jt,
                     HttpStatus.OK);
         }
         //Otherwise, return server error
-        return new ResponseEntity<String>(
-                status,
+        return new ResponseEntity<>(
+                jt,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -95,16 +95,16 @@ public class JobTypesController {
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody
     ResponseEntity<String> deleteJobType(@PathVariable(name = "id") Integer id) {
-        String status = JobTypesService.deleteJobType(id);
+        boolean status = JobTypesService.deleteJobType(id);
         //If Successfully Deleted, Return OK status
-        if (status.equals("Deleted")) {
-            return new ResponseEntity<String>(
-                    status,
+        if (status) {
+            return new ResponseEntity<>(
+                    "Successfully Deleted!",
                     HttpStatus.OK);
         }
         //Otherwise, return server error
-        return new ResponseEntity<String>(
-                status,
+        return new ResponseEntity<>(
+                "Failure Deleting",
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

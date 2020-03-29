@@ -27,6 +27,8 @@ public class JobTypes {
         this.id = id;
         this.typeName = typeName;
     }
+    
+    
     public Integer getId() {
         return id;
     }
