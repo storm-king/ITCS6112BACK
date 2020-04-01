@@ -6,6 +6,7 @@
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class JobTypes {
      
     private String typeName;
     
-    @OneToMany(mappedBy="jobType")
+    @OneToMany(mappedBy="jobType", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Ranking> ranks;
     
     public JobTypes(){
