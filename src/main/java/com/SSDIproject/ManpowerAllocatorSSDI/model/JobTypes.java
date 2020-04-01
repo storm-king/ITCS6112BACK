@@ -5,10 +5,12 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
  
 @Entity
 public class JobTypes {
@@ -18,6 +20,9 @@ public class JobTypes {
     private Integer id;
      
     private String typeName;
+    
+    @OneToMany(mappedBy="jobType")
+    private Set<Ranking> ranks;
     
     public JobTypes(){
         
