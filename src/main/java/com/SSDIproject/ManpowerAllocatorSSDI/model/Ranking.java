@@ -5,7 +5,10 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +22,9 @@ public class Ranking {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer rankId;
      
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name="job_type", nullable=false)
+    @JsonBackReference
     private JobTypes jobType;
 
     private Integer knowLvl;

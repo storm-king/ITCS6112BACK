@@ -35,10 +35,14 @@ public class JobTypesService {
         // Update a Job Type
 	public boolean updateJobType(Integer id, JobTypes jt) {
 		try {
-			jt.setId(id);
+                        Optional<JobTypes> previous = jobTypeRepository.findById(id);
+                        JobTypes previousJobType = previous.get();
+                        jt.setId(id);
+                        jt.setRanks(previousJobType.getRanks());
 			jobTypeRepository.save(jt);
 			return true;
 		}catch(Exception e) {
+                        System.out.println(e);
 			return false;
 		}
 	}
