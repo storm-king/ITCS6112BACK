@@ -24,7 +24,7 @@ public class JobTypes {
      
     private String typeName;
     
-    @OneToMany(mappedBy="jobType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy="jobType", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonManagedReference
     private Set<Ranking> ranks = null;
     

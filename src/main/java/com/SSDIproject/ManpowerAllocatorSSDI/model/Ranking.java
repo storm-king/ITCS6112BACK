@@ -28,7 +28,7 @@ public class Ranking {
     private JobTypes jobType;
 
     private Integer knowLvl;
-    private Integer rank;
+    private Integer importance;
     
     public Ranking(){
         
@@ -50,12 +50,12 @@ public class Ranking {
         knowLvl = newKnowLvl;
     }
     
-    public Integer getRank(){
-        return rank;
+    public Integer getImportance(){
+        return importance;
     }
     
-    public void setRank(Integer newRank){
-        rank = newRank;
+    public void setImportance(Integer newRank){
+        importance = newRank;
     }
     
     public JobTypes getJobType(){
@@ -65,4 +65,5 @@ public class Ranking {
     public void setJobType(JobTypes jt){
         jobType = jt;
     }
+    
 }
