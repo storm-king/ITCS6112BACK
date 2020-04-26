@@ -33,6 +33,7 @@ public class RankingService {
                             JobTypes jobTypeFK = 
                             jobTypeRepository.findById(rank.getJobType().getId()).get();
                             rank.setJobType(jobTypeFK);
+                            System.out.println(rank.getClass());
                             rankingRepository.save(rank);
                         };
 			return true;

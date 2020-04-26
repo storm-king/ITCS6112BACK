@@ -5,67 +5,107 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.controller;
 
+import com.SSDIproject.ManpowerAllocatorSSDI.Services.JobsService;
+import com.SSDIproject.ManpowerAllocatorSSDI.Services.RankingService;
+import static com.SSDIproject.ManpowerAllocatorSSDI.controller.JobsControllerTest.asJsonString;
+import com.SSDIproject.ManpowerAllocatorSSDI.model.Jobs;
 import com.SSDIproject.ManpowerAllocatorSSDI.model.Ranking;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.springframework.http.ResponseEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.MockitoAnnotations.initMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
  *
  * @author stormking
  */
+@ExtendWith(MockitoExtension.class)
 public class RankingControllerTest {
     
-    public RankingControllerTest() {
+    @InjectMocks
+    RankingController rankingController;
+    
+    @Mock
+    RankingService rankingService;
+    
+    private MockMvc mockMvc;
+    
+    @BeforeEach
+    public void setUp() throws Exception {
+        initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(rankingController).build();
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
-     * Test of getAllRankings method, of class RankingController.
+     * Test Success of getAllRankings method, of class RankingController.
      */
     @Test
-    public void testGetAllRankings() {
-        System.out.println("getAllRankings");
-        RankingController instance = new RankingController();
-        ResponseEntity<Iterable<Ranking>> expResult = null;
-        ResponseEntity<Iterable<Ranking>> result = instance.getAllRankings();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    public void testGetAllRankings_request_OK()
+    {
+        Ranking r1 = new Ranking(1, 1, 1);
+        Ranking r2 = new Ranking(2, 2, 2);
+        
+        Ranking[] rList = {r1, r2};
+        List<Ranking> rankingList = new ArrayList<Ranking>();
+        rankingList.add(r1);
+        rankingList.add(r1);
+        Iterable<Ranking> allRankingsList = rankingList;
+        
+        doReturn(allRankingsList).when(rankingService).getAllRankings();
 
-    /**
-     * Test of updateAllRanking method, of class RankingController.
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/ranking/all")
+                    .content(asJsonString(allRankingsList))
+                    .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType("application/json"));
+        } catch (Exception ex) {
+            Logger.getLogger(RankingControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail();
+        }
+    }
+    
+        /**
+     * Test Success of updateRanking method, of class RankingController.
      */
     @Test
-    public void testUpdateAllRanking() {
-        System.out.println("updateAllRanking");
-        Ranking[] ranks = null;
-        RankingController instance = new RankingController();
-        ResponseEntity expResult = null;
-        ResponseEntity result = instance.updateAllRanking(ranks);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testUpdateRanking_request_OK()
+    {
+        Ranking r1 = new Ranking(1, 1, 1);
+        Ranking rList[] = {r1};
+        
+        doReturn(true).when(rankingService).updateAllRankings(any(Ranking[].class));
+
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.post("/ranking/update_all")
+                    .content(asJsonString(rList))
+                    .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType("application/json"));
+        } catch (Exception ex) {
+            Logger.getLogger(JobsControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail();
+        }
     }
     
 }

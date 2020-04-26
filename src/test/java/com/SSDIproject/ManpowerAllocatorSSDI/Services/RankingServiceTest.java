@@ -24,10 +24,9 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.MockitoAnnotations.initMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.RecoverableDataAccessException;
-
 /**
  *
- * @author stormking
+ * @author mthayer
  */
 @ExtendWith(MockitoExtension.class)
 public class RankingServiceTest {
@@ -37,7 +36,7 @@ public class RankingServiceTest {
     @InjectMocks
     RankingService rankingService;
     
-    //@Mock JobTypesRepository jobTypesRepository;
+    @Mock JobTypesRepository jobTypesRepository;
     @Mock RankingRepository rankingRepository;
     
     @BeforeEach
@@ -51,19 +50,19 @@ public class RankingServiceTest {
      */
     @Test
     public void testUpdateAllRankings_RankingsPassedInSuccessfully() {
-        System.out.println("updateAllRankings");
+        Optional<JobTypes> testJtOptional = Optional.of(new JobTypes(1, "testJob"));
+        JobTypes testJt = new JobTypes(1, "testJob");
         
-        //Setup
-        JobTypes exampleJob = new JobTypes(1, "test");
-        Ranking testRank1 = new Ranking(1, exampleJob, 1, 1);
-        Ranking testRank2 = new Ranking(2, exampleJob, 2, 2);
-        Ranking[] ranks = {testRank1, testRank2};
+        Ranking r1 = new Ranking(1, testJt, 1, 1);
+        Ranking r2 = new Ranking(2, testJt, 2, 2);
+        Ranking[] rList = {r1, r2};
         
         //Mock
-        doReturn(testRank1).when(rankingRepository).save(any(Ranking.class));
+        doReturn(r1).when(rankingRepository).save(any(Ranking.class));  
+        doReturn(testJtOptional).when(jobTypesRepository).findById(any(Integer.class));
         
         //Test results
-        boolean result = rankingService.updateAllRankings(ranks);
+        boolean result = rankingService.updateAllRankings(rList);
         boolean expResult = true;
         
         assertEquals(expResult, result);
@@ -86,12 +85,34 @@ public class RankingServiceTest {
         assertEquals(expResult, result);
     }
 
+       /**
+     * Test of getAllRankings method, of class RankingService.
+     */
+    @Test
+    public void testGetAllRankings_Empty_DB() {
+        Iterable<Ranking> emptyIterable = new ArrayList<Ranking>();
+        
+        doReturn(emptyIterable).when(rankingRepository).findAll();
+        
+        Iterable<Ranking> expResult = emptyIterable;
+        Iterable<Ranking> result = rankingService.getAllRankings();
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of getAllRankings method, of class RankingService.
      */
     @Test
-    public void testGetAllRankings() {
+    public void testGetAllRankings_DB_Has_Entries() {
+        ArrayList<Ranking> rList = new ArrayList<Ranking>();
+        rList.add(new Ranking(1, 1, 1));
+        rList.add(new Ranking(2, 2, 2));
+        Iterable<Ranking> rankingList = rList;
+        doReturn(rankingList).when(rankingRepository).findAll();
         
+        Iterable<Ranking> expResult = rankingList;
+        Iterable<Ranking> result = rankingService.getAllRankings();
+        assertEquals(expResult, result);
     }
     
 }

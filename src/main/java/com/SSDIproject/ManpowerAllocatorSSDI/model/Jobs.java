@@ -34,6 +34,13 @@ public class Jobs {
         
     }
     
+    //This is a constructor only used for testing purposes
+    public Jobs(Integer id, String name)
+    {
+        jobId = id;
+        jobName = name;
+    }
+    
     public Integer getJobId(){
         return jobId;
     }
