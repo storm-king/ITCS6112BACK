@@ -26,6 +26,9 @@ public class RankingService {
 	public boolean updateAllRankings(Ranking[] ranks) {
 		try {
                         rankingRepository.deleteAll();
+                        if(ranks.length == 0){
+                            return false;
+                        }
                         for(Ranking rank : ranks){ 
                             JobTypes jobTypeFK = 
                             jobTypeRepository.findById(rank.getJobType().getId()).get();

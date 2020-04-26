@@ -34,6 +34,14 @@ public class Ranking {
         
     }
     
+    //Constructor created for testing purposes:
+    public Ranking(Integer id, JobTypes jt, Integer know, Integer importance){
+        this.rankId = id;
+        this.jobType = jt;
+        this.knowLvl = know;
+        this.importance = importance;
+    }
+    
     public Integer getRankId(){
         return rankId;
     }
