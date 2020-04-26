@@ -7,7 +7,9 @@ package com.SSDIproject.ManpowerAllocatorSSDI.repository;
 
 import com.SSDIproject.ManpowerAllocatorSSDI.model.JobTypes;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
  
+@Repository
 public interface JobTypesRepository extends CrudRepository<JobTypes, Integer> {
- 
+
 }
