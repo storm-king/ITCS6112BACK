@@ -5,10 +5,15 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
  
 @Entity
 public class JobTypes {
@@ -19,8 +24,12 @@ public class JobTypes {
      
     private String typeName;
     
+    @OneToMany(mappedBy="jobType", cascade = CascadeType.MERGE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Ranking> ranks = null;
+    
     public JobTypes(){
-        
+      
     }
  
     public JobTypes(int id, String typeName){
@@ -43,6 +52,21 @@ public class JobTypes {
  
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+    
+    public void setRanks(Set<Ranking> ranks) {
+        if (this.ranks == null) {
+            this.ranks = ranks;
+        } else if(this.ranks != ranks) {
+            this.ranks.clear();
+            if(ranks != null){
+                this.ranks.addAll(ranks);
+            }
+        }
+    }
+    
+    public Set<Ranking> getRanks(){
+        return ranks;
     }
          
 }

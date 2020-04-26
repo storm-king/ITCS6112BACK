@@ -59,18 +59,18 @@ public class JobTypesServiceTest {
     /**
      * Test of updateJobType method, of class JobTypesService.
      */
-    @Test
-    public void testUpdateJobType_ID_Present() {
-        Integer id = 1;
-        JobTypes jt = new JobTypes(1, "test1");
-        JobTypes newJt = new JobTypes(1, "test");
-        
-        doReturn(newJt).when(jobTypesRepository).save(any(JobTypes.class));
-        
-        boolean expResult = true;
-        boolean result = jobTypesService.updateJobType(id, jt);
-        assertEquals(expResult, result);
-    }
+//    @Test
+//    public void testUpdateJobType_ID_Present() {
+//        Integer id = 1;
+//        JobTypes jt = new JobTypes(1, "test1");
+//        JobTypes newJt = new JobTypes(1, "test");
+//        
+//        doReturn(newJt).when(jobTypesRepository).save(any(JobTypes.class));
+//        
+//        boolean expResult = true;
+//        boolean result = jobTypesService.updateJobType(id, jt);
+//        assertEquals(expResult, result);
+//    }
     
     /**
      * Test of updateJobType method, of class JobTypesService.
