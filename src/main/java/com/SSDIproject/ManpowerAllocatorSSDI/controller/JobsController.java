@@ -1,7 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.SSDIproject.ManpowerAllocatorSSDI.controller;
 
-import com.SSDIproject.ManpowerAllocatorSSDI.Services.WorkGroupsService;
-import com.SSDIproject.ManpowerAllocatorSSDI.model.WorkGroups;
+import com.SSDIproject.ManpowerAllocatorSSDI.Services.JobsService;
+import com.SSDIproject.ManpowerAllocatorSSDI.model.Jobs;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,79 +23,79 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/work_groups")
+@RequestMapping(path = "/jobs")
 @CrossOrigin
-public class WorkGroupsController {
+public class JobsController {
 
     @Autowired
-    private WorkGroupsService WorkGroupsService;
+    private JobsService jobsService;
 
     // Add new job type
     @PostMapping(path = "/add")
     public @ResponseBody
-    ResponseEntity<WorkGroups> addNewWorkGroup(@RequestBody WorkGroups wg) {
-        boolean status = WorkGroupsService.addWorkGroup(wg);
+    ResponseEntity<Jobs> addNewJob(@RequestBody Jobs job) {
+        boolean status = jobsService.addJob(job);
         //Return OK status if successfully updated
         if (status) {
             return new ResponseEntity<>(
-                    wg,
+                    job,
                     HttpStatus.OK);
         }
         //Otherwise, return server error if something went wrong
         return new ResponseEntity<>(
-                wg,
+                job,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     // Get all job types
     @GetMapping(path = "/all")
     public @ResponseBody
-    ResponseEntity<Iterable<WorkGroups>> getAllWorkGroups() {
-        Iterable<WorkGroups> workGroupsList = WorkGroupsService.getAllWorkGroups();
+    ResponseEntity<Iterable<Jobs>> getAllJobs() {
+        Iterable<Jobs> jobsList = jobsService.getAllJobs();
         return new ResponseEntity<>(
-                workGroupsList,
+                jobsList,
                 HttpStatus.OK);
     }
 
     // Get single job type by Id
     @GetMapping(path = "/{id}")
     public @ResponseBody
-    ResponseEntity<Optional<WorkGroups>> getWorkGroupsById(@PathVariable(name = "id") Integer id) {
-        Optional<WorkGroups> workGroup = WorkGroupsService.getWorkGroup(id);
+    ResponseEntity<Optional<Jobs>> getJobsById(@PathVariable(name = "id") Integer id) {
+        Optional<Jobs> job = jobsService.getJob(id);
         //If Found, return OK status with job type found
-        if (workGroup.isPresent()) {
+        if (job.isPresent()) {
             return new ResponseEntity<>(
-                    workGroup,
+                    job,
                     HttpStatus.OK);
         }
         //Otherwise, return error not found
         return new ResponseEntity<>(
-                workGroup,
+                job,
                 HttpStatus.NOT_FOUND);
     }
 
     // Update a Job Type
     @PostMapping(path = "/update/{id}")
     public @ResponseBody
-    ResponseEntity<WorkGroups> updateWorkGroup(@PathVariable(name = "id") Integer id, @RequestBody WorkGroups wg) {
-        boolean status = WorkGroupsService.updateWorkGroup(id, wg);
+    ResponseEntity<Jobs> updateJob(@PathVariable(name = "id") Integer id, @RequestBody Jobs job) {
+        boolean status = jobsService.updateJob(id, job);
         //If Successful update, return OK Status
         if (status) {
             return new ResponseEntity<>(
-                    wg,
+                    job,
                     HttpStatus.OK);
         }
         //Otherwise, return server error
         return new ResponseEntity<>(
-                wg,
+                job,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     // Delete a JobType
     @DeleteMapping(path = "/delete/{id}")
     public @ResponseBody
-    ResponseEntity<String> deleteWorkGroup(@PathVariable(name = "id") Integer id) {
-        boolean status = WorkGroupsService.deleteWorkGroup(id);
+    ResponseEntity<String> deleteJob(@PathVariable(name = "id") Integer id) {
+        boolean status = jobsService.deleteJob(id);
         //If Successfully Deleted, Return OK status
         if (status) {
             return new ResponseEntity<>(
@@ -100,22 +105,6 @@ public class WorkGroupsController {
         //Otherwise, return server error
         return new ResponseEntity<>(
                 "Failure Deleting",
-                HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    
-    @PostMapping(path = "/update_jobs/{id}")
-    public @ResponseBody
-    ResponseEntity<WorkGroups> updateWorkGroupJobs(@PathVariable(name = "id") Integer id, @RequestBody WorkGroups wg) {
-        boolean status = WorkGroupsService.updateWorkGroupJobs(id, wg);
-        //If Successful update, return OK Status
-        if (status) {
-            return new ResponseEntity<>(
-                    wg,
-                    HttpStatus.OK);
-        }
-        //Otherwise, return server error
-        return new ResponseEntity<>(
-                wg,
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
