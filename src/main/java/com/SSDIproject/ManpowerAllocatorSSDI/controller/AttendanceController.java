@@ -32,7 +32,7 @@ public class AttendanceController {
 	
 	@Autowired
 	private AttendanceService attendanceService;
-	
+
 	// Add new job type
 	@PostMapping(path="/add")
 	public @ResponseBody String addNewAttendance (@RequestBody Attendance a) {

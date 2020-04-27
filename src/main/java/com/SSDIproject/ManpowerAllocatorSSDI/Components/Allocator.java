@@ -22,8 +22,8 @@ import org.springframework.stereotype.Component;
  *
  * @author stormking
  */
-@Component
-public class Allocator {
+//@Component
+//public class Allocator {
     
 //    private HashMap<Integer, Employee> allEmployees;
 //    private ArrayList<Employee> presentEmployees;
@@ -91,4 +91,4 @@ public class Allocator {
     
     
     
-}
+//}
