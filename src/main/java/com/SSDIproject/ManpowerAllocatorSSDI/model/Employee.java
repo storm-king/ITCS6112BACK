@@ -5,6 +5,8 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
+
+import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +24,19 @@ public class Employee {
      public int employee_id;
         public String first_name;
          public String last_name;
-        public String position;
-        public boolean first_shift;
-         public boolean second_shift;
-         public boolean third_shift;
+        public  int job_type_id;
+        public Date seniority_date;
+         public int shift;
+
+    public Employee(Integer id, int employee_id, String first_name, String last_name, int job_type_id, Date seniority_date, int shift) {
+        this.id = id;
+        this.employee_id = employee_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.job_type_id = job_type_id;
+        this.seniority_date = seniority_date;
+        this.shift = shift;
+    }
 
     public Integer getId() {
         return id;
@@ -59,37 +70,34 @@ public class Employee {
         this.last_name = last_name;
     }
 
-    public String getPosition() {
-        return position;
+    public int getJob_type_id() {
+        return job_type_id;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setJob_type_id(int job_type_id) {
+        this.job_type_id = job_type_id;
     }
 
-    public boolean isFirst_shift() {
-        return first_shift;
+    public Date getSeniority_date() {
+        return seniority_date;
     }
 
-    public void setFirst_shift(boolean first_shift) {
-        this.first_shift = first_shift;
+    public void setSeniority_date(Date seniority_date) {
+        this.seniority_date = seniority_date;
     }
 
-    public boolean isSecond_shift() {
-        return second_shift;
+    public int getShift() {
+        return shift;
     }
 
-    public void setSecond_shift(boolean second_shift) {
-        this.second_shift = second_shift;
+    public void setShift(int shift) {
+        this.shift = shift;
     }
+    
+         
+        
 
-    public boolean isThird_shift() {
-        return third_shift;
-    }
-
-    public void setThird_shift(boolean third_shift) {
-        this.third_shift = third_shift;
-    }
+   
 
   
 
