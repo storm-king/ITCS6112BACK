@@ -5,6 +5,7 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
  *
  * @author kolby
  */
+@Entity
 public class EmployeeMatrix {
       @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -20,6 +22,7 @@ public class EmployeeMatrix {
       private Integer employee_id;
       private Integer job_id;
       private Integer job_knowledge;
+      public EmployeeMatrix(){}
 
     public EmployeeMatrix(Integer entry_id, Integer employee_id, Integer job_id, Integer job_knowledge) {
         this.entry_id = entry_id;

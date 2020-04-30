@@ -6,7 +6,8 @@
 package com.SSDIproject.ManpowerAllocatorSSDI.model;
 
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,16 +21,17 @@ import javax.persistence.Id;
 public class Employee {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
-     public int employee_id;
+    private Integer employee_id;
+    
         public String first_name;
          public String last_name;
         public  int job_type_id;
-        public Date seniority_date;
+        public LocalDate seniority_date;
          public int shift;
+         public Employee(){};
 
-    public Employee(Integer id, int employee_id, String first_name, String last_name, int job_type_id, Date seniority_date, int shift) {
-        this.id = id;
+    public Employee(Integer  employee_id, String first_name, String last_name, int job_type_id, LocalDate seniority_date, int shift) {
+     
         this.employee_id = employee_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -38,12 +40,12 @@ public class Employee {
         this.shift = shift;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getEmployeeId() {
+        return employee_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEmployeeId(Integer id) {
+        this.employee_id = id;
     }
 
     public int getEmployee_id() {
@@ -78,11 +80,11 @@ public class Employee {
         this.job_type_id = job_type_id;
     }
 
-    public Date getSeniority_date() {
+    public LocalDate getSeniority_date() {
         return seniority_date;
     }
 
-    public void setSeniority_date(Date seniority_date) {
+    public void setSeniority_date(LocalDate seniority_date) {
         this.seniority_date = seniority_date;
     }
 
