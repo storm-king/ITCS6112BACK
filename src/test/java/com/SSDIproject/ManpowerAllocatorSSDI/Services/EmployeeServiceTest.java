@@ -6,16 +6,30 @@
 package com.SSDIproject.ManpowerAllocatorSSDI.Services;
 
 import com.SSDIproject.ManpowerAllocatorSSDI.model.Employee;
+import com.SSDIproject.ManpowerAllocatorSSDI.repository.EmployeeRepository;
+import com.SSDIproject.ManpowerAllocatorSSDI.repository.EmployeeRepository;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.doReturn;
 
 /**
  *
  * @author kolby
  */
 public class EmployeeServiceTest {
+       @InjectMocks
+    EmployeeService employeeService;
+    
+    @Mock
+    EmployeeRepository employeeRepository;
     
     public EmployeeServiceTest() {
     }
@@ -31,16 +45,5 @@ public class EmployeeServiceTest {
     /**
      * Test of addEmployees method, of class EmployeeService.
      */
-    @Test
-    public void testAddEmployees() {
-        System.out.println("addEmployees");
-        Employee em = null;
-        EmployeeService instance = new EmployeeService();
-        String expResult = "";
-        String result = instance.addEmployees(em);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

@@ -5,7 +5,7 @@
  */
 package com.SSDIproject.ManpowerAllocatorSSDI.repository;
 
-import com.SSDIproject.ManpowerAllocatorSSDI.model.Employee;
+
 import com.SSDIproject.ManpowerAllocatorSSDI.model.EmployeeMatrix;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
