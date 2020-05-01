@@ -109,6 +109,9 @@ public class AllocationService {
                 
                 // Set job name of assignment
                 allocatedEmployeeEntry.setJobName(allocatedEmployeeEntry.getJobName());
+                
+                // Save Entry to DB
+                allocationRepository.save(allocatedEmployeeEntry);
             }           
         }
         
