@@ -48,14 +48,16 @@ public class WorkGroupsService {
         // Update a Work Group
 	public boolean updateWorkGroupJobs(Integer id, WorkGroups wg) {
 		try {
-                        Set<Jobs> jobsToSave = wg.getJobs();
-                        for(Jobs job: jobsToSave){
-                            System.out.println("Job ID: " + job.getJobId());
-                            System.out.println("JobName: " + job.getJobName());
+                        Iterable<WorkGroups> allWorkGroups = workGroupsRepository.findAll();
+                        for(WorkGroups workGroup : allWorkGroups){
+                            if(workGroup.getWorkGroupName().equals(wg.getWorkGroupName())){
+                                wg.setId(workGroup.getId());
+                                workGroupsRepository.delete(workGroup);
+                                workGroupsRepository.save(wg);
+                                return true;
+                            }
                         }
-                        wg.setId(id);
-			workGroupsRepository.save(wg);
-			return true;
+                        return false;	
 		}catch(Exception e) {
 			return false;
 		}
